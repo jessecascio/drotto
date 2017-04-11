@@ -3,6 +3,9 @@ import * as proc from 'child_process';
 import * as os from 'os';
 import IWorker from './IWorker';
 
+// lock instantiation with key
+const _instanceKey = Symbol('_instanceKey');
+
 /**
  * worker pool singleton
  */
@@ -16,12 +19,18 @@ export default class Executor {
    * singleton instance
    */
   private static instance: Executor;
-
+ 
   /**
    * prevent direct instantiation, create workers
+   * @param key - required for instantiation
    * @param poolSize - number
+   * @throws Error
    */
-  private constructor(poolSize: any) {
+  private constructor(key: symbol, poolSize: any) {
+    if (key !== _instanceKey) {
+      throw new Error('No Direct Instantiation');
+    }
+
     let cleanSize = parseInt(poolSize, 10); // expects string
 
     // ensure valid range
@@ -47,7 +56,7 @@ export default class Executor {
       return Executor.instance;
     }
 
-    Executor.instance = new Executor(poolSize);
+    Executor.instance = new Executor(_instanceKey, poolSize);
     return Executor.instance;
   }
 
