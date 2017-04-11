@@ -9,3 +9,4 @@ mock.js
 *.todo
 test.js
 *.log
+coverage

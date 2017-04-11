@@ -10,3 +10,5 @@ test.js
 *.log
 .vscode
 mock.js
+.babelrc
+coverage

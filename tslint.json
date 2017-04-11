@@ -14,7 +14,13 @@
     "quotemark": [
       false
     ],
-    "forin": false
+    "forin": false,
+    "variable-name": [
+      false
+    ], 
+    "trailing-comma": [
+      false
+    ]
   },
   "jsRules": {
   },

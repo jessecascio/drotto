@@ -1,9 +1,10 @@
 
 import * as proc from 'child_process';
 import * as os from 'os';
-import IWorker from './IWorker';
+import IWorker from './interface/IWorker';
+import IWorkers from './interface/IWorkers';
 
-// lock instantiation with key
+// lock direct instantiation with key
 const _instanceKey = Symbol('_instanceKey');
 
 /**
@@ -13,13 +14,18 @@ export default class Executor {
   /**
    * array of current workers
    */
-  private workers: IWorker[] = [];
+  private workers: IWorkers = {};
 
   /**
    * singleton instance
    */
   private static instance: Executor;
- 
+
+  /**
+   * size of the pool
+   */
+  private poolSize: number = 0;
+
   /**
    * prevent direct instantiation, create workers
    * @param key - required for instantiation
@@ -31,16 +37,16 @@ export default class Executor {
       throw new Error('No Direct Instantiation');
     }
 
-    let cleanSize = parseInt(poolSize, 10); // expects string
+    this.poolSize = parseInt(poolSize, 10); // expects string, use any
 
     // ensure valid range
-    if (typeof cleanSize !== 'number' || cleanSize < 1) {
-      cleanSize = 1;
-    } else if (cleanSize > os.cpus().length) {
-      cleanSize = os.cpus().length;
+    if (typeof this.poolSize !== 'number' || Number.isNaN(this.poolSize) || this.poolSize < 1) {
+      this.poolSize = 1;
+    } else if (this.poolSize > os.cpus().length) {
+      this.poolSize = os.cpus().length;
     }
 
-    for (let i = 0; i < cleanSize; i++) {
+    for (let i = 0; i < this.poolSize; i++) {
       const worker = proc.fork(`${__dirname}/proc/process`);
       this.workers[worker.pid] = { active: false, worker };
     }
