@@ -1,0 +1,28 @@
+{
+  "name": "drotto",
+  "version": "0.1.0",
+  "description": "NodeJS Process Executor",
+  "main": "lib/drotto",
+  "scripts": {
+    "mock": "ts-node src/mock.ts",
+    "test": "npm run compile && mocha --recursive test",
+    "compile": "npm run compile:init && npm run compile:ts",
+    "compile:init": "rm -rf lib && mkdir lib",
+    "compile:ts": "tsc",
+    "prepublish": "npm run lint && npm run test && npm run compile",
+    "lint": "tslint src/**/*.ts"
+  },
+  "author": "Jesse Cascio",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^7.0.12",
+    "chai": "^3.5.0",
+    "ts-node": "^1.7.2",
+    "tslint": "^4.2.0",
+    "typescript": "^2.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessecascio/drotto"
+  }
+}

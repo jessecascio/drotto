@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+src/mock.ts
+lib
+**/*.map
+.vscode
+mock.js
+.babelrc
+*.todo
+test.js
+*.log

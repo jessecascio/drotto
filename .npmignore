@@ -1,0 +1,12 @@
+test
+src
+.gitignore
+**/*.map
+tsconfig.json
+tslint.json
+lib/mock.js
+test.js
+*.todo
+*.log
+.vscode
+mock.js
