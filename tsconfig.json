@@ -12,6 +12,7 @@
   "exclude": [
     "node_modules",
     "test",
-    "lib"
+    "lib",
+    "src/mock.ts"
   ]
 }

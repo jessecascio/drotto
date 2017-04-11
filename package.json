@@ -1,11 +1,11 @@
 {
   "name": "drotto",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NodeJS Process Executor",
   "main": "lib/drotto",
   "scripts": {
     "mock": "ts-node src/mock.ts",
-    "test": "npm run compile && mocha --recursive test",
+    "test": "mocha --recursive test",
     "compile": "npm run compile:init && npm run compile:ts",
     "compile:init": "rm -rf lib && mkdir lib",
     "compile:ts": "tsc",
