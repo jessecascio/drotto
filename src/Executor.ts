@@ -12,7 +12,7 @@ const _instanceKey = Symbol('_instanceKey');
  */
 export default class Executor {
   /**
-   * array of current workers
+   * list of current workers
    */
   private workers: IWorkers = {};
 
@@ -149,7 +149,7 @@ export default class Executor {
   private _pollWorkers(): Promise<IWorker> {
     return new Promise((resolve, reject) => {
       // wont block the event loop
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         let worker = false;
 
         Object.keys(this.workers).some((pid) => {

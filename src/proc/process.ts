@@ -12,14 +12,14 @@ process.on('message', (message) => {
   try {
     result = fn(...message.args);
   } catch (e) {
-    return process.send({ e });
+    return process.send({ e: { message: e.toString(), stack: e.stack } } );
   }
 
   process.send({ result });
 });
 
 process.on('uncaughtException', (e) => {
-  process.send({ e });
+  process.send({ e: { message: e.toString(), stack: e.stack } } );
 });
 
 process.on('disconnect', () => {
