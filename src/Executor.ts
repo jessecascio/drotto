@@ -143,28 +143,37 @@ export default class Executor {
   }
 
   /**
-   * poll workers, non-blocking
+   * polls workers, non-blocking
    * @return Promise
    */
   private _pollWorkers(): Promise<IWorker> {
     return new Promise((resolve, reject) => {
       // wont block the event loop
       const interval = setInterval(() => {
-        let worker = false;
-
-        Object.keys(this.workers).some((pid) => {
-          if (this.workers[pid].active === false) {
-            this.workers[pid].active = true;
-            worker = this.workers[pid].worker;
-            return true; // breaks loop
-          }
-        });
-
-        if (worker !== false) {
+        const worker = this._inactiveWorker();
+        if (typeof worker !== "undefined") {
           clearInterval(interval);
           return resolve(worker);
         }
       }, 0);
     });
+  }
+
+  /**
+   * grab an inactive worker
+   * @return IWorker | undefined
+   */
+  private _inactiveWorker(): IWorker {
+    let worker;
+
+    Object.keys(this.workers).some((pid) => {
+      if (this.workers[pid].active === false) {
+        this.workers[pid].active = true;
+        worker = this.workers[pid].worker;
+        return true; // breaks loop
+      }
+    });
+
+    return worker;
   }
 }

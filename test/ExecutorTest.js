@@ -107,4 +107,93 @@ describe('Executor', () => {
       instance.workers = pointer;
     });
   });
+
+  describe('#invokeAll', () => {
+    it ('should invoke each function', () => {
+      const spy = sinon.spy();
+      instance = Executor.fixedPool(2);
+
+      instance.invoke = spy;
+
+      const fn = () => true;
+
+      instance.invokeAll([fn, fn, fn]);
+      assert.equal(spy.callCount, 3);
+    });
+
+    it ('should invoke each function w/ correct args', () => {
+      const spy = sinon.spy();
+      instance = Executor.fixedPool(2);
+
+      instance.invoke = spy;
+
+      const fn = (arg) => true;
+
+      instance.invokeAll([fn, fn, fn], [[3], [4], [5]]);
+      assert.equal(spy.callCount, 3);
+
+      assert.equal(spy.args[0][0], fn);
+      assert.equal(spy.args[0][1][0], 3);
+      assert.equal(spy.args[1][1][0], 4);
+      assert.equal(spy.args[2][1][0], 5);
+    });
+  });
+
+  describe('#_pollWorkers', () => {
+    it ('should return an inactive worker', async () => {
+      const spy1 = sinon.spy();
+      const spy2 = sinon.spy();
+
+      const worker1 = { active: true, worker: spy1 };
+      const worker2 = { active: false, worker: spy2 };
+
+      instance = Executor.fixedPool(2);
+
+      const pointer = instance.workers;
+      instance.workers = { '1': worker1, '2': worker2 };
+
+      const worker = await instance._pollWorkers();
+      assert.equal(worker, spy2);
+
+      instance.workers = pointer; // reset so they can be shutdown
+    });
+  });
+
+  describe('#_inactiveWorker', () => {
+    it ('should return an inactive worker', () => {
+      const spy1 = sinon.spy();
+      const spy2 = sinon.spy();
+
+      const worker1 = { active: true, worker: spy1 };
+      const worker2 = { active: false, worker: spy2 };
+
+      instance = Executor.fixedPool(2);
+
+      const pointer = instance.workers;
+      instance.workers = { '1': worker1, '2': worker2 };
+
+      const worker = instance._inactiveWorker();
+      assert.equal(worker, spy2);
+
+      instance.workers = pointer; // reset so they can be shutdown
+    });
+
+    it ('should return undefined for no inactive workers', () => {
+      const spy1 = sinon.spy();
+      const spy2 = sinon.spy();
+
+      const worker1 = { active: true, worker: spy1 };
+      const worker2 = { active: true, worker: spy2 };
+
+      instance = Executor.fixedPool(2);
+
+      const pointer = instance.workers;
+      instance.workers = { '1': worker1, '2': worker2 };
+
+      const worker = instance._inactiveWorker();
+      assert.isTrue(typeof worker === "undefined");
+
+      instance.workers = pointer; // reset so they can be shutdown
+    });
+  });
 });
