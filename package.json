@@ -1,7 +1,7 @@
 {
   "name": "drotto",
   "version": "0.2.4",
-  "description": "NodeJS Process Executor",
+  "description": "NodeJS Process Pool",
   "main": "lib/drotto",
   "scripts": {
     "mock": "ts-node src/mock.ts",
