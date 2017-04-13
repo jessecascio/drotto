@@ -24,6 +24,7 @@ To parallelize a single function:
 (async () => {
  // obtain an Executor instance
  const executor = Executor.fixedPool(os.cpus().length - 1);
+
   // invoke cpu bound function with param
  const p = executor.invoke(max => {
    for (let i = 0; i < max; i++) { }
@@ -49,6 +50,7 @@ To parallelize multiple functions:
 (async () => {
  // obtain an Executor instance
  const executor = Executor.fixedPool(os.cpus().length - 1);
+ 
   // cpu bound function
  const fn = (max) => {
    for (let i = 0; i < max; i++) { }
