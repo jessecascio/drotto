@@ -4,7 +4,7 @@ Drotto ("Dr Otto") is a lean, NodeJS process pool, allowing for both single and 
 
 ## Why drotto?
 
-NodeJS is single threaded.  While I/O tasks can be parallelized over the OS with it’s asynchronous architecture, CPU bound workloads block the event loop, leading to potentially disastrous performance.  To avoid this, NodeJS offers [libraries](https://nodejs.org/api/child_process.html) to parallelize CPU bound workloads over CPU cores via new processes.  Drotto is a lightweight abstraction managing creation, delegation, and deletion of parallelized NodeJS worker processes.
+NodeJS is single threaded.  While I/O tasks can be parallelized over the OS with it’s asynchronous architecture, CPU bound workloads block the event loop, leading to potentially disastrous performance.  To avoid this, NodeJS offers [libraries](https://nodejs.org/api/child_process.html) to parallelize CPU bound workloads over CPU cores via new processes.  Drotto is a lightweight abstraction for managing creation, delegation, and deletion of parallelized NodeJS worker processes.
 
 [More Info](http://jessesnet.com/development-notes/2017/cpu-workloads-nodejs-processor-parallelism/)
 
