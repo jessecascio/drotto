@@ -10,7 +10,7 @@ $ npm i --save drotto
 
 ## Examples
 
-SEE [tutorials](https://github.com/jessecascio/drotto-tutorials) for more code samples
+**SEE [tutorials](https://github.com/jessecascio/drotto-tutorials) for more code samples**
 
 To parallelize a single function:
 
