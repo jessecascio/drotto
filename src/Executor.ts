@@ -108,6 +108,10 @@ export default class Executor {
    */
   public invoke(cb: Function, args?: any[]): Promise<any> {
     return new Promise(async (resolve, reject) => {
+      if (typeof cb !== "function") {
+        return reject(new Error('Must Invoke Function'));
+      }
+
       let worker;
 
       try {
@@ -121,7 +125,7 @@ export default class Executor {
         this.workers[worker.pid].active = false;
         this.workers[worker.pid].worker.removeListener('message', mHandler);
 
-        if (e || d.e) {
+        if (d.e || e) {
           return d.e ? reject(d.e) : reject(e);
         }
 

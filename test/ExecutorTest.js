@@ -108,6 +108,19 @@ describe('Executor', () => {
     });
   });
 
+  describe('#invoke', () => {
+    it ('should throw error on non function', async () => {
+      instance = Executor.fixedPool(2);
+
+      try {
+        await instance.invoke('adasd');
+        assert.fail('Error Expected');
+      } catch (e) {
+        assert.isTrue(true);
+      }
+    });
+  });
+
   describe('#invokeAll', () => {
     it ('should invoke each function', () => {
       const spy = sinon.spy();
@@ -138,7 +151,7 @@ describe('Executor', () => {
       assert.equal(spy.args[2][1][0], 5);
     });
   });
-
+  
   describe('#_pollWorkers', () => {
     it ('should return an inactive worker', async () => {
       const spy1 = sinon.spy();
