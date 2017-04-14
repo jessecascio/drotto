@@ -41,7 +41,6 @@ To parallelize a single function:
  });
 
  console.log('asynchronous execution...');
-
 })();
 ```
 To parallelize multiple functions:
@@ -70,7 +69,6 @@ To parallelize multiple functions:
  }
 
  executor.shutdown();
-
 })();
 ```
 ## Limitations
