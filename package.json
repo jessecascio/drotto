@@ -1,6 +1,6 @@
 {
   "name": "drotto",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "NodeJS Process Pool",
   "main": "lib/drotto",
   "scripts": {
