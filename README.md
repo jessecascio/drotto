@@ -73,3 +73,6 @@ To parallelize multiple functions:
 
 })();
 ```
+## Limitations
+
+Currently the CPU bound functions are not able to run functions or functions attached to objects that are injected as parameters, nor are they able to require additional modules from inside of the functions.
