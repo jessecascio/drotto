@@ -1,6 +1,6 @@
 # drotto
 
-Drotto ("Dr Otto") is a lean, NodeJS process pool, allowing for both single and multi function parallel processing.
+Drotto is a lean, NodeJS process pool, allowing for both single and multi function parallel processing.
 
 ## Why drotto?
 
